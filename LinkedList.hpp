@@ -10,7 +10,7 @@ public:
 
 private:
     struct Node {
-        ValueType *m_value;
+        ValueType m_value;
 
         Node<ValueType> *m_next;
 
@@ -18,6 +18,8 @@ private:
 
         Node <ValueType> *m_head;
     }
+
+    std::unique_ptr<Node<ValueType>> m_head;
 
 };
 

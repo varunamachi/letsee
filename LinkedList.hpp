@@ -1,26 +1,38 @@
 #pragma once
 
+#include <memory>
+
 namespace letsee {
 
-
-template<typename ValueType>
+template <typename ValueType,
+          typename = typename std::enable_if<
+              std::is_default_constructible_v<ValueType>>::value>
 class LinkedList {
 
 public:
+  using SizeType = std::size_t;
 
 private:
-    struct Node {
-        ValueType m_value;
+  template <typename V> struct Node {
 
-        Node<ValueType> *m_next;
+    V m_value;
 
-        Node<ValueType> *m_prev;
+    Node<V> *m_next;
 
-        Node <ValueType> *m_head;
-    }
+    Node<V> *m_prev;
 
-    std::unique_ptr<Node<ValueType>> m_head;
+    Node<V> *m_head;
+  };
 
+  std::unique_ptr<Node<ValueType>> m_head;
+
+  void add(const ValueType &value) {}
+
+  void insert(SizeType index, const ValueType &value) {}
+
+  void remove(SizeType index) {}
+
+  const ValueType &get() const {}
 };
 
-}
+} // namespace letsee

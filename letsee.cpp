@@ -1,5 +1,8 @@
 #include <iostream>
 
-void main() {
+#include "LinkedList.hpp"
+
+int main() {
     std::cout << "Letsee...\n";
+
 }

@@ -30,4 +30,7 @@
 *.exe
 *.out
 *.app
- .vscode/*
+.vscode/*
+i#.vscode/ipch/745300756285390d/LinkedList.ipch
+CMakeLists.txt.user
+

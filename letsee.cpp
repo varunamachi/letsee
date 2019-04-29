@@ -3,17 +3,27 @@
 #include <unordered_map>
 
 #include "LinkedList.hpp"
+#include "ThisCount.hpp"
 
 const std::unordered_map<std::string, std::function<bool()>> commands = {
-    {"ll",
+    {"llist",
      []() -> bool {
        letsee::LinkedList<int> ll;
        ll.print();
        return true;
      }},
-    {"hw", []() -> bool { return false; }},
-    {"hw", []() -> bool { return false; }},
+    {"this-count",
+     []() -> bool {
+       auto counter = ThisCount();
+       return counter.run();
+     }},
 };
+
+void printAvailable() {
+  for (const auto kv : commands) {
+    std::cout << kv.first << '\n';
+  }
+}
 
 int main(int argc, char **argv) {
   if (argc > 1) {
@@ -24,9 +34,11 @@ int main(int argc, char **argv) {
       return res ? 0 : -1;
     } catch (std::out_of_range &) {
       std::cout << "Invalid command " << argv[0] << " provided\n";
+      printAvailable();
     }
   } else {
     std::cout << "Please provide a command!\n";
+    printAvailable();
   }
   return -2;
 }

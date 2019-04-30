@@ -19,6 +19,7 @@ public:
     auto res = Pos{-1, -1, -1, -1};
     const auto exp = std::string{"THIS"};
     const auto input = std::string{"THIS IS A TEST STRING"};
+    auto len = exp.size();
     while (true) {
       int match = 0;
       bool atleastOneFound = false;
@@ -27,9 +28,8 @@ public:
           res[match] = j;
           ++match;
           if (match == exp.size()) {
-            if (!contains(results, res)) {
+            if (!contains(results, res, len)) {
               results.push_back(res);
-              print(results);
               reset(res);
               atleastOneFound = true;
             } else {
@@ -39,17 +39,25 @@ public:
           }
         }
       }
-      // if (!atleastOneFound) {
-      //   break;
-      // }
+      if (!atleastOneFound) {
+        if (len > 0) {
+          --len;
+        } else {
+          break;
+        }
+      }
     }
     print(results);
     return results.size() > 0;
   }
 
-  bool contains(const std::vector<Pos> &results, Pos res) {
+  bool contains(const std::vector<Pos> &results, Pos res, int len) {
     for (const auto &pos : results) {
-      if (pos == res) {
+      bool match = true;
+      for (auto i = 0; i < len; ++i) {
+        match = match && res[i] == pos[i];
+      }
+      if (match) {
         return true;
       }
     }

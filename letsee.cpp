@@ -20,8 +20,9 @@ const std::unordered_map<std::string, std::function<bool()>> commands = {
 };
 
 void printAvailable() {
+  std::cout << "Choose one of:\n";
   for (const auto kv : commands) {
-    std::cout << kv.first << '\n';
+    std::cout << "\t" << kv.first << '\n';
   }
 }
 
